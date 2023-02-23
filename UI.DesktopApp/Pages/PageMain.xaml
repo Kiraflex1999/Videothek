@@ -64,10 +64,9 @@
             </Grid.ColumnDefinitions>
             <Border Grid.Column="1" 
                     Background="#FF232323">
-                <ScrollViewer VerticalScrollBarVisibility="Auto" 
-                              CanContentScroll="True">
-                    <ItemsControl/>
-                </ScrollViewer>
+                <DataGrid ItemsSource="{Binding ListDataGrid, Mode=TwoWay}"
+                          SelectedItem="{Binding SelectedArticle, Mode=TwoWay}"
+                          Loaded="DataGrid_Loaded"/>
             </Border>
         </Grid>
     </Grid>

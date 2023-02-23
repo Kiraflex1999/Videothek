@@ -1,14 +1,19 @@
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
+using System.Collections.Generic;
 using System.Windows.Input;
 
 namespace Logic.UI.ViewModel
 {
     public class MainViewModel : ViewModelBase
     {
+        private DBService dbService = new DBService();
+
         public MainViewModel()
         {
+            #region DesingMode
+
             if (IsInDesignMode)
             {
                 //MainWindow
@@ -27,6 +32,16 @@ namespace Logic.UI.ViewModel
                 _ProductDescription = "ProductDescription";
                 //PageRegister
             }
+
+            #endregion
+
+            Messenger.Default.Register<string>(this, (prop) =>
+            {
+                if (prop.Equals("DataGridLoaded"))
+                {
+                    ListDataGrid = dbService.GetAllArticles();
+                }
+            });
         }
 
         #region PageMainBinding
@@ -257,6 +272,24 @@ namespace Logic.UI.ViewModel
                 }
                 return _LogInConfirmButton;
             }
+        }
+
+        #endregion
+
+        #region DatabaseBinding
+
+        private List<Article> _ListDataGrid;
+        public List<Article> ListDataGrid
+        {
+            get { return _ListDataGrid; }
+            set { _ListDataGrid = value; RaisePropertyChanged("ListDataGrid"); }
+        }
+
+        private Article _SelectedArticle;
+        public Article SelectedArticle
+        {
+            get { return _SelectedArticle; }
+            set { _SelectedArticle = value; RaisePropertyChanged("SelectedArticle"); }
         }
 
         #endregion
