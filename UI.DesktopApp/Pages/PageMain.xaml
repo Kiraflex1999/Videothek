@@ -66,8 +66,21 @@
                     Background="#FF232323">
                 <DataGrid ItemsSource="{Binding ListDataGrid, Mode=TwoWay}"
                           SelectedItem="{Binding SelectedArticle, Mode=TwoWay}"
-                          Loaded="DataGrid_Loaded"/>
+                          Loaded="DataGrid_Loaded"
+                          CanUserAddRows="False" 
+                          CanUserDeleteRows="False"
+                          IsReadOnly="True"/>
             </Border>
         </Grid>
+        <Border x:Name="MainBorder" 
+                Background="#7F313030"
+                Visibility="Visible" 
+                Grid.RowSpan="10" 
+                Grid.ColumnSpan="10">
+        </Border>
+        <Grid.Effect>
+            <BlurEffect x:Name="BlurEffect" 
+                        Radius="15"/>
+        </Grid.Effect>
     </Grid>
 </UserControl>

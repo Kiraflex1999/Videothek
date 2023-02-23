@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight.Messaging;
+using Logic.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,11 +25,28 @@ namespace UI.DesktopApp.Pages
         public PageMain()
         {
             InitializeComponent();
+            Messenger.Default.Register<string>(this, (prop) =>
+            {
+                if (prop.Equals("LogInIsTrue"))
+                {
+                    IsLogInTrue(true);
+                }
+                if (prop.Equals("LogInIsFalse"))
+                {
+                    IsLogInTrue(false);
+                }
+            });
         }
 
         private void DataGrid_Loaded(object sender, RoutedEventArgs e)
         {
             Messenger.Default.Send("DataGridLoaded");
+        }
+
+        private void IsLogInTrue(bool x)
+        {
+            if (x) { MainBorder.Visibility = Visibility.Collapsed; BlurEffect.Radius = 0; }
+            if (!x) { MainBorder.Visibility = Visibility.Visible; BlurEffect.Radius = 15; }
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using GalaSoft.MvvmLight.Messaging;
+using Logic.UI;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +24,10 @@ namespace UI.DesktopApp.Windows
         public WindowLogIn()
         {
             InitializeComponent();
+            Messenger.Default.Register<string>(this, (prop) =>
+            {
+                if (prop == "LogInIsTrue") { this.Close(); }
+            });
         }
     }
 }

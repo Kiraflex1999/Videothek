@@ -267,7 +267,7 @@ namespace Logic.UI.ViewModel
                 {
                     _LogInConfirmButton = new RelayCommand(() =>
                     {
-
+                        Messenger.Default.Send("LogInIsTrue");
                     });
                 }
                 return _LogInConfirmButton;
